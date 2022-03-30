@@ -4,13 +4,14 @@ namespace App\Http\Controllers;
 
 use App\Category;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 
 class CategoryController extends Controller
 {
     public function index(Request $request)
     {
 
-        $categories = Category::get();
+        $categories = Category::where('name', 'like', $request->get('name').'%')->paginate(20);
 
         return view('admin.category.index', compact('categories'));
     }
@@ -48,11 +49,18 @@ class CategoryController extends Controller
         return redirect("admin/category/list");
     }
 
-    public function destroy(int $categoryId)
-    {
-       $category = Category::where('id', $categoryId)->delete();
+    public function destroy(Request $request)
+    {   
+        $categoryId = $request->post('id');
+        $category = Category::where('id', $categoryId)->first();
 
-       return redirect("admin/category/list");
+        if($category){
+            $category->delete(); 
+            
+            return response()->json(["message"=>"Deu boa"],Response::HTTP_OK);
+        }
+        
+        return response()->json(["message"=>"Deu ruim"],Response::HTTP_NOT_ACCEPTABLE);
     }
 }
 

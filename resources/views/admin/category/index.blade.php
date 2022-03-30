@@ -43,7 +43,7 @@
     </div>
 
     <div class="card-footer">
-
+        {{ $categories->links() }}
     </div>
 </div>
 
@@ -71,6 +71,26 @@
                         id: categoryId
                     },
                     dataType: "json"
+                });
+                request.done(function() {
+                    Swal.fire({
+                            icon: 'success',
+                            title: 'Opa!',
+                            text: 'Seu dado foi deletado com sucesso!',
+                            buttons: true,
+                        })
+                        .then((buttonClick) => {
+                            if (buttonClick) {
+                                location.reload();
+                            }
+                        });
+                });
+                request.fail(function() {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oopa...',
+                        text: 'Algo deu errado, tente novamente!',
+                    })
                 });
             }
             if (result.isDismissed) {
