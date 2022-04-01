@@ -16,3 +16,13 @@ use Illuminate\Http\Request;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+Route::prefix('products')->group( function() {
+    Route::get('list', 'ProductController@index');
+    Route::get('form', 'ProductController@form');
+    Route::get('form/{id}', 'ProductController@form');
+    Route::post('save', 'ProductController@store');      
+    Route::post('save/{id}', 'ProductController@save');
+    Route::delete('delete', 'ProductController@destroy');
+
+});
