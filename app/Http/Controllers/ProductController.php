@@ -49,6 +49,13 @@ class ProductController extends Controller
         return response()->json(['message'=>'Deu tudo boa'], Response::HTTP_OK);
     }
 
+    public function get(int $productId) 
+    {
+        $product = Product::where('id', $productId)->first();
+    
+        return response()->json($product, Response::HTTP_OK);
+    }
+
     /**
      * Display the specified resource.
      *
@@ -57,9 +64,7 @@ class ProductController extends Controller
      */
     public function show($productId)
     {
-        $product = Product::where('id', $productId)->first();
-
-        return response()->json($product, Response::HTTP_OK);
+        return view('product.view');
     }
 
     /**
