@@ -55,9 +55,11 @@ class ProductController extends Controller
      * @param  \App\Product  $product
      * @return \Illuminate\Http\Response
      */
-    public function show(Product $product)
+    public function show($productId)
     {
-        //
+        $product = Product::where('id', $productId)->first();
+
+        return response()->json($product, Response::HTTP_OK);
     }
 
     /**
