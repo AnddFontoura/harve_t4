@@ -31,3 +31,9 @@ Route::prefix('admin')->group( function() {
     });
     
 });
+Route::prefix('admin')->group( function() {
+    Route::prefix('product')->group( function() {
+        Route::get('show/{id}', 'ProductController@show');
+    });
+    
+});

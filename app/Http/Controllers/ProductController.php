@@ -52,7 +52,7 @@ class ProductController extends Controller
     public function get(int $productId) 
     {
         $product = Product::where('id', $productId)->first();
-    
+        $product->value = number_format($product->value,2,',','.');
         return response()->json($product, Response::HTTP_OK);
     }
 
@@ -64,7 +64,7 @@ class ProductController extends Controller
      */
     public function show($productId)
     {
-        return view('product.view');
+        return view('admin.product.view');
     }
 
     /**
